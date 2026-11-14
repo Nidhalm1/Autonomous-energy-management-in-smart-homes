@@ -150,23 +150,5 @@ implements	BoxExternalControlJava4CI
 	{
 		return this.getCurrentPowerLevel().getMeasure().getData();
 	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlJava4CI#getTargetTemperatureJava4()
-	 */
-	@Override
-	public double		getTargetTemperatureJava4() throws Exception
-	{
-		return this.getTargetTemperature().getMeasure().getData();
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlJava4CI#getCurrentTemperatureJava4()
-	 */
-	@Override
-	public double		getCurrentTemperatureJava4() throws Exception
-	{
-		return this.getCurrentTemperature().getMeasure().getData();
-	}
 }
 // -----------------------------------------------------------------------------

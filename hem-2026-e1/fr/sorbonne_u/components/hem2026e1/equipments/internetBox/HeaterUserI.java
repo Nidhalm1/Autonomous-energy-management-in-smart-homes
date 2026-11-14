@@ -33,7 +33,6 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box;
 // The fact that you are presently reading this means that you have had
 // knowledge of the CeCILL-C license and that you accept its terms.
 
-import fr.sorbonne_u.alasca.physical_data.Measure;
 import fr.sorbonne_u.exceptions.PreconditionException;
 
 // -----------------------------------------------------------------------------
@@ -112,21 +111,5 @@ extends		BoxExternalControlI
 	 *
 	 */
 	public void			switchOff();
-
-	/**
-	 * set the target temperature.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code on()}
-	 * pre	{@code target != null && TEMPERATURE_UNIT.equals(target.getMeasurementUnit())}
-	 * pre	{@code target.getData() >= MIN_TARGET_TEMPERATURE.getData() && target.getData() <= MAX_TARGET_TEMPERATURE.getData()}
-	 * post	{@code getTargetTemperature().getMeasure().equals(target)}
-	 * </pre>
-	 *
-	 * @param target	the new target temperature.
-	 */
-	public void			setTargetTemperature(Measure<Double> target);
 }
 // -----------------------------------------------------------------------------

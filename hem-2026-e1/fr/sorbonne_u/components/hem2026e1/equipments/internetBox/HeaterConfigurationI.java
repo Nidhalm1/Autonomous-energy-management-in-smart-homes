@@ -47,9 +47,6 @@ import fr.sorbonne_u.exceptions.AssertionChecking;
  * <p><strong>Invariants</strong></p>
  * 
  * <pre>
- * invariant	{@code TEMPERATURE_UNIT != null}
- * invariant	{@code MIN_TARGET_TEMPERATURE != null && MIN_TARGET_TEMPERATURE.getMeasurementUnit().equals(TEMPERATURE_UNIT)}
- * invariant	{@code MAX_TARGET_TEMPERATURE != null && MAX_TARGET_TEMPERATURE.getMeasurementUnit().equals(TEMPERATURE_UNIT)}
  * invariant	{@code POWER_UNIT != null}
  * invariant	{@code TENSION_UNIT != null}
  * invariant	{@code MAX_POWER_LEVEL != null && MAX_POWER_LEVEL.getMeasurementUnit().equals(POWER_UNIT) && MAX_POWER_LEVEL.getData() > 0.0}
@@ -66,29 +63,11 @@ public interface		BoxConfigurationI
 	// Constants
 	// -------------------------------------------------------------------------
 
-	public static final MeasurementUnit	TEMPERATURE_UNIT =
-													MeasurementUnit.CELSIUS;
-
-	/** minimal target temperature for the Box in celsius.				*/
-	public static final Measure<Double>	MIN_TARGET_TEMPERATURE =
-												new Measure<>(
-														-50.0,
-														TEMPERATURE_UNIT);
-	/** maximal target temperature for the Box in celsius.				*/
-	public static final Measure<Double>	MAX_TARGET_TEMPERATURE =
-												new Measure<>(
-														50.0,
-														TEMPERATURE_UNIT);
-
 	/** measurement unit for power used in this appliance.					*/
 	public static final MeasurementUnit	POWER_UNIT = MeasurementUnit.WATTS;
 	/** measurement unit for tension used in this appliance.				*/
 	public static final MeasurementUnit	TENSION_UNIT = MeasurementUnit.VOLTS;
 
-	/** power level of the Box when on but not heating, in the power
-	 *  measurement unit used by the Box.								*/
-	public static final Measure<Double>	NOT_HEATING_POWER =
-											new Measure<>(2.2, POWER_UNIT);
 	/** max power level of the Box, in the power measurement unit used
 	 *  by the Box.														*/
 	public static final Measure<Double>	MAX_POWER_LEVEL =
@@ -117,24 +96,6 @@ public interface		BoxConfigurationI
 	public static boolean	staticInvariants()
 	{
 		boolean ret = true;
-		ret &= AssertionChecking.checkStaticInvariant(
-				TEMPERATURE_UNIT != null,
-				BoxStateI.class,
-				"TEMPERATURE_UNIT != null");
-		ret &= AssertionChecking.checkStaticInvariant(
-				MIN_TARGET_TEMPERATURE != null &&
-					MIN_TARGET_TEMPERATURE.getMeasurementUnit().equals(
-															TEMPERATURE_UNIT),
-				BoxConfigurationI.class,
-				"MIN_TARGET_TEMPERATURE != null && MIN_TARGET_TEMPERATURE."
-				+ "getMeasurementUnit().equals(TEMPERATURE_UNIT)");
-		ret &= AssertionChecking.checkStaticInvariant(
-				MAX_TARGET_TEMPERATURE != null &&
-					MAX_TARGET_TEMPERATURE.getMeasurementUnit().equals(
-															TEMPERATURE_UNIT),
-				BoxConfigurationI.class,
-				"MAX_TARGET_TEMPERATURE != null && MAX_TARGET_TEMPERATURE."
-				+ "getMeasurementUnit().equals(TEMPERATURE_UNIT)");
 		ret &= AssertionChecking.checkStaticInvariant(
 				POWER_UNIT != null,
 				BoxExternalControlI.class,

@@ -101,23 +101,5 @@ implements	BoxExternalControlCI
 	{
 		return ((BoxExternalControlCI)this.offering).getCurrentPowerLevel();
 	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI#getTargetTemperature()
-	 */
-	@Override
-	public TimedMeasure<Double>	getTargetTemperature() throws Exception
-	{
-		return ((BoxExternalControlCI)this.offering).getTargetTemperature();
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI#getCurrentTemperature()
-	 */
-	@Override
-	public TimedMeasure<Double>	getCurrentTemperature() throws Exception
-	{
-		return ((BoxExternalControlCI)this.offering).getCurrentTemperature();
-	}
 }
 // -----------------------------------------------------------------------------

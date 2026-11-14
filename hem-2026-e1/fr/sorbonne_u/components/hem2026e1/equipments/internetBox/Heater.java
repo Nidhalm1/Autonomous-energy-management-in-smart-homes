@@ -36,7 +36,6 @@ import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxExternalControlJava4InboundPort;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxInternalControlInboundPort;
 import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxUserJava4InboundPort;
 import fr.sorbonne_u.exceptions.ImplementationInvariantException;
 import fr.sorbonne_u.exceptions.AssertionChecking;
@@ -56,8 +55,6 @@ import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
  * 
  * <pre>
  * invariant	{@code currentState != null}
- * invariant	{@code targetTemperature != null && targetTemperature.getMeasurementUnit().equals(TEMPERATURE_UNIT)}
- * invariant	{@code targetTemperature.getData() >= MIN_TARGET_TEMPERATURE.getData() && targetTemperature.getData() <= MAX_TARGET_TEMPERATURE.getData()}
  * invariant	{@code currentPowerLevel == null || currentPowerLevel.getMeasurementUnit().equals(POWER_UNIT)}
  * invariant	{@code currentPowerLevel == null || currentPowerLevel.getData() >= 0.0 && currentPowerLevel.getData() <= MAX_POWER_LEVEL.getData()}
  * </pre>
@@ -67,7 +64,6 @@ import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
  * <pre>
  * invariant	{@code REFLECTION_INBOUND_PORT_URI != null && !REFLECTION_INBOUND_PORT_URI.isEmpty()}
  * invariant	{@code USER_INBOUND_PORT_URI != null && !USER_INBOUND_PORT_URI.isEmpty()}
- * invariant	{@code INTERNAL_CONTROL_INBOUND_PORT_URI != null && !INTERNAL_CONTROL_INBOUND_PORT_URI.isEmpty()}
  * invariant	{@code EXTERNAL_CONTROL_INBOUND_PORT_URI != null && !EXTERNAL_CONTROL_INBOUND_PORT_URI.isEmpty()}
  * invariant	{@code X_RELATIVE_POSITION >= 0}
  * invariant	{@code Y_RELATIVE_POSITION >= 0}
@@ -78,12 +74,10 @@ import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
  * @author	<a href="mailto:Jacques.Malenfant@lip6.fr">Jacques Malenfant</a>
  */
 @OfferedInterfaces(offered={BoxUserJava4CI.class,
-							BoxInternalControlCI.class,
 							BoxExternalControlJava4CI.class})
 public class			Box
 extends		AbstractComponent
-implements	BoxUserI,
-			BoxInternalControlI
+implements	BoxUserI
 {
 	// -------------------------------------------------------------------------
 	// Inner interfaces and types
@@ -101,10 +95,8 @@ implements	BoxUserI,
 	 */
 	public static enum	BoxState
 	{
-		/** Box is on, but not heating.									*/
+		/** Box is on.														*/
 		ON,
-		/** Box is heating.												*/
-		HEATING,
 		/** Box is off.													*/
 		OFF
 	}
@@ -129,43 +121,23 @@ implements	BoxUserI,
 	/** URI of the Box port for user interactions.						*/
 	public static final String	USER_INBOUND_PORT_URI =
 												"Box-USER-INBOUND-PORT-URI";
-	/** URI of the Box port for internal control.						*/
-	public static final String	INTERNAL_CONTROL_INBOUND_PORT_URI =
-									"Box-INTERNAL-CONTROL-INBOUND-PORT-URI";
-	/** URI of the Box port for internal control.						*/
+	/** URI of the Box port for external control.						*/
 	public static final String	EXTERNAL_CONTROL_INBOUND_PORT_URI =
 									"Box-EXTERNAL-CONTROL-INBOUND-PORT-URI";
 
 
 	/** inbound port offering the <code>BoxUserCI</code> interface.		*/
 	protected BoxUserJava4InboundPort			hip;
-	/** inbound port offering the <code>BoxInternalControlCI</code>
-	 *  interface.															*/
-	protected BoxInternalControlInboundPort		hicip;
 	/** inbound port offering the <code>BoxExternalControlCI</code>
 	 *  interface.															*/
 	protected BoxExternalControlJava4InboundPort	hecip;
 
 	// Appliance information
-	
-	/** standard target temperature for the Box in celsius.				*/
-	protected static final Measure<Double>	STANDARD_TARGET_TEMPERATURE =
-												new Measure<>(
-														19.0,
-														TEMPERATURE_UNIT);
-	/** fake current temperature, used when testing without simulation. 	*/
-	public static final TimedMeasure<Double>	FAKE_CURRENT_TEMPERATURE =
-												new TimedMeasure<>(
-													new Measure<>(
-															10.0,
-															TEMPERATURE_UNIT));
 
 	/** current state (on, off) of the Box.								*/
 	protected BoxState				currentState;
 	/**	current power level of the Box.									*/
 	protected TimedMeasure<Double>		currentPowerLevel;
-	/** target temperature for the heating.									*/
-	protected TimedMeasure<Double>		targetTemperature;
 
 	// -------------------------------------------------------------------------
 	// Invariants
@@ -194,21 +166,6 @@ implements	BoxUserI,
 				h.currentState != null,
 				Box.class, h,
 				"h.currentState != null");
-		ret &= AssertionChecking.checkImplementationInvariant(
-				h.targetTemperature != null &&
-						h.targetTemperature.getMeasurementUnit().
-													equals(TEMPERATURE_UNIT),
-				Box.class, h,
-				"targetTemperature != null && targetTemperature."
-				+ "getMeasurementUnit().equals(TEMPERATURE_UNIT)");
-		ret &= AssertionChecking.checkImplementationInvariant(
-				h.targetTemperature.getData() >=
-							MIN_TARGET_TEMPERATURE.getData() &&
-					h.targetTemperature.getData() <=
-								MAX_TARGET_TEMPERATURE.getData(),
-				Box.class, h,
-				"targetTemperature.getData() >= MIN_TARGET_TEMPERATURE.getData() && "
-				+ "targetTemperature.getData() <= MIN_TARGET_TEMPERATURE.getData()");
 		ret &= AssertionChecking.checkImplementationInvariant(
 				h.currentPowerLevel == null ||
 					h.currentPowerLevel.getMeasurementUnit().equals(POWER_UNIT),
@@ -241,7 +198,7 @@ implements	BoxUserI,
 	public static boolean	staticInvariants()
 	{
 		boolean ret = true;
-		ret &= BoxInternalControlI.staticInvariants();
+		ret &= BoxExternalControlI.staticInvariants();
 		ret &= AssertionChecking.checkStaticInvariant(
 				REFLECTION_INBOUND_PORT_URI != null &&
 									!REFLECTION_INBOUND_PORT_URI.isEmpty(),
@@ -252,12 +209,6 @@ implements	BoxUserI,
 				USER_INBOUND_PORT_URI != null && !USER_INBOUND_PORT_URI.isEmpty(),
 				Box.class,
 				"USER_INBOUND_PORT_URI != null && !USER_INBOUND_PORT_URI.isEmpty()");
-		ret &= AssertionChecking.checkStaticInvariant(
-				INTERNAL_CONTROL_INBOUND_PORT_URI != null &&
-								!INTERNAL_CONTROL_INBOUND_PORT_URI.isEmpty(),
-				Box.class,
-				"INTERNAL_CONTROL_INBOUND_PORT_URI != null && "
-							+ "!INTERNAL_CONTROL_INBOUND_PORT_URI.isEmpty()");
 		ret &= AssertionChecking.checkStaticInvariant(
 				EXTERNAL_CONTROL_INBOUND_PORT_URI != null &&
 								!EXTERNAL_CONTROL_INBOUND_PORT_URI.isEmpty(),
@@ -316,97 +267,84 @@ implements	BoxUserI,
 	 */
 	protected			Box() throws Exception
 	{
-		this(USER_INBOUND_PORT_URI, INTERNAL_CONTROL_INBOUND_PORT_URI,
-			 EXTERNAL_CONTROL_INBOUND_PORT_URI);
+		this(USER_INBOUND_PORT_URI, EXTERNAL_CONTROL_INBOUND_PORT_URI);
 	}
 
 	/**
 	 * create a new Box.
-	 * 
+	 *
 	 * <p><strong>Contract</strong></p>
-	 * 
+	 *
 	 * <pre>
 	 * pre	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
-	 * pre	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
 	 * pre	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
 	 * post	{@code true}	// no postcondition.
 	 * </pre>
-	 * 
+	 *
 	 * @param BoxUserInboundPortURI				URI of the inbound port to call the Box component for user interactions.
-	 * @param BoxInternalControlInboundPortURI	URI of the inbound port to call the Box component for internal control.
 	 * @param BoxExternalControlInboundPortURI	URI of the inbound port to call the Box component for external control.
 	 * @throws Exception							<i>to do</i>.
 	 */
 	protected			Box(
 		String BoxUserInboundPortURI,
-		String BoxInternalControlInboundPortURI,
 		String BoxExternalControlInboundPortURI
 		) throws Exception
 	{
 		super(1, 0);
 		this.initialise(BoxUserInboundPortURI,
-						BoxInternalControlInboundPortURI,
 						BoxExternalControlInboundPortURI);
 	}
 
 	/**
 	 * create a new Box.
-	 * 
+	 *
 	 * <p><strong>Contract</strong></p>
-	 * 
+	 *
 	 * <pre>
 	 * pre	{@code reflectionInboundPortURI != null && !reflectionInboundPortURI.isEmpty()}
 	 * pre	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
-	 * pre	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
 	 * pre	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
 	 * post	{@code true}	// no postcondition.
 	 * </pre>
-	 * 
+	 *
 	 * @param reflectionInboundPortURI				URI of the reflection inbound port of the component.
 	 * @param BoxUserInboundPortURI				URI of the inbound port to call the Box component for user interactions.
-	 * @param BoxInternalControlInboundPortURI	URI of the inbound port to call the Box component for internal control.
 	 * @param BoxExternalControlInboundPortURI	URI of the inbound port to call the Box component for external control.
 	 * @throws Exception							<i>to do</i>.
 	 */
 	protected			Box(
 		String reflectionInboundPortURI,
 		String BoxUserInboundPortURI,
-		String BoxInternalControlInboundPortURI,
 		String BoxExternalControlInboundPortURI
 		) throws Exception
 	{
 		super(reflectionInboundPortURI, 1, 0);
 
 		this.initialise(BoxUserInboundPortURI,
-						BoxInternalControlInboundPortURI,
 						BoxExternalControlInboundPortURI);
 	}
 
 	/**
-	 * initialise a new thermostated Box.
-	 * 
+	 * initialise a new Box.
+	 *
 	 * <p><strong>Contract</strong></p>
-	 * 
+	 *
 	 * <pre>
 	 * pre	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
-	 * pre	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
 	 * pre	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
 	 * post	{@code true}	// no postcondition.
 	 * </pre>
 	 *
 	 * @param BoxUserInboundPortURI				URI of the inbound port to call the Box component for user interactions.
-	 * @param BoxInternalControlInboundPortURI	URI of the inbound port to call the Box component for internal control.
 	 * @param BoxExternalControlInboundPortURI	URI of the inbound port to call the Box component for external control.
 	 * @throws Exception							<i>to do</i>.
 	 */
 	protected void		initialise(
 		String BoxUserInboundPortURI,
-		String BoxInternalControlInboundPortURI,
 		String BoxExternalControlInboundPortURI
 		) throws Exception
 	{
 		assert	BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty();
-		assert	BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty();
 		assert	BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty();
 
 		this.currentState = BoxState.OFF;
@@ -415,17 +353,9 @@ implements	BoxUserI,
 					new Measure<>(
 							MAX_POWER_LEVEL.getData(),
 							MAX_POWER_LEVEL.getMeasurementUnit()));
-		this.targetTemperature =
-			new TimedMeasure<>(
-					new Measure<>(
-							STANDARD_TARGET_TEMPERATURE.getData(),
-							STANDARD_TARGET_TEMPERATURE.getMeasurementUnit()));
 
 		this.hip = new BoxUserJava4InboundPort(BoxUserInboundPortURI, this);
 		this.hip.publishPort();
-		this.hicip = new BoxInternalControlInboundPort(
-									BoxInternalControlInboundPortURI, this);
-		this.hicip.publishPort();
 		this.hecip = new BoxExternalControlJava4InboundPort(
 									BoxExternalControlInboundPortURI, this);
 		this.hecip.publishPort();
@@ -456,7 +386,6 @@ implements	BoxUserI,
 	{
 		try {
 			this.hip.unpublishPort();
-			this.hicip.unpublishPort();
 			this.hecip.unpublishPort();
 		} catch (Throwable e) {
 			throw new ComponentShutdownException(e) ;
@@ -478,8 +407,7 @@ implements	BoxUserI,
 			this.traceMessage("Box returns its state: " +
 											this.currentState + ".\n");
 		}
-		return this.currentState == BoxState.ON ||
-									this.currentState == BoxState.HEATING;
+		return this.currentState == BoxState.ON;
 	}
 
 	/**
@@ -514,137 +442,6 @@ implements	BoxUserI,
 		this.currentState = BoxState.OFF;
 
 		assert	 !this.on() : new PostconditionException("!on()");
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserI#setTargetTemperature(fr.sorbonne_u.alasca.physical_data.Measure)
-	 */
-	@Override
-	public void			setTargetTemperature(Measure<Double> target)
-	{
-		if (Box.VERBOSE) {
-			this.traceMessage("Box sets a new target "
-										+ "temperature: " + target + ".\n");
-		}
-
-		assert	this.on() : new PreconditionException("on()");
-		assert	target != null &&
-						TEMPERATURE_UNIT.equals(target.getMeasurementUnit()) :
-				new PreconditionException(
-						"target != null && TEMPERATURE_UNIT.equals("
-						+ "target.getMeasurementUnit())");
-		assert	target.getData() >= MIN_TARGET_TEMPERATURE.getData() &&
-						target.getData() <= MAX_TARGET_TEMPERATURE.getData() :
-				new PreconditionException(
-						"target.getData() >= MIN_TARGET_TEMPERATURE.getData() "
-						+ "&& target.getData() <= MAX_TARGET_TEMPERATURE.getData()");
-
-		this.targetTemperature = new TimedMeasure<>(target);
-
-		assert	getTargetTemperature().getMeasure().equals(target) :
-				new PostconditionException(
-						"getTargetTemperature().getMeasure().equals(target)");
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxStateI#getTargetTemperature()
-	 */
-	@Override
-	public TimedMeasure<Double>	getTargetTemperature()
-	{
-		if (Box.VERBOSE) {
-			this.traceMessage("Box returns its target"
-							+ " temperature " + this.targetTemperature + ".\n");
-		}
-
-		assert	this.on() : new PreconditionException("on()");
-
-		TimedMeasure<Double> ret = this.targetTemperature;
-
-		assert	ret != null && TEMPERATURE_UNIT.equals(
-									ret.getMeasure().getMeasurementUnit()) :
-				new PostconditionException(
-						"return != null && TEMPERATURE_UNIT.equals("
-						+ "return.getMeasure().getMeasurementUnit())");
-		assert	ret.getMeasure().getData() >= MIN_TARGET_TEMPERATURE.getData() &&
-					ret.getMeasure().getData() <= MAX_TARGET_TEMPERATURE.getData() :
-				new PostconditionException(
-						"return.getMeasure().getData() >= "
-						+ "MIN_TARGET_TEMPERATURE.getData() "
-						+ "&& return.getMeasure().getData() <= "
-						+ "MAX_TARGET_TEMPERATURE.getData()");
-
-		return ret;
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxStateI#getCurrentTemperature()
-	 */
-	@Override
-	public TimedMeasure<Double>	getCurrentTemperature()
-	{
-		assert	this.on() : new PreconditionException("on()");
-
-		// Temporary implementation; would need a temperature sensor.
-		TimedMeasure<Double> currentTemperature = FAKE_CURRENT_TEMPERATURE;
-		if (Box.VERBOSE) {
-			this.traceMessage("Box returns the current"
-							+ " temperature " + currentTemperature + ".\n");
-		}
-
-		return  currentTemperature;
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxInternalControlI#heating()
-	 */
-	@Override
-	public boolean		heating() throws Exception
-	{
-		if (Box.VERBOSE) {
-			this.traceMessage("Box returns its heating status " + 
-						(this.currentState == BoxState.HEATING) + ".\n");
-		}
-
-		assert	this.on() : new PreconditionException("on()");
-
-		return this.currentState == BoxState.HEATING;
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxInternalControlI#startHeating()
-	 */
-	@Override
-	public void			startHeating() throws Exception
-	{
-		if (Box.VERBOSE) {
-			this.traceMessage("Box starts heating.\n");
-		}
-
-		assert	this.on() : new PreconditionException("on()");
-		assert	!this.heating() : new PreconditionException("!heating()");
-
-		this.currentState = BoxState.HEATING;
-
-		assert	this.heating() : new PostconditionException("heating()");
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxInternalControlI#stopHeating()
-	 */
-	@Override
-	public void			stopHeating() throws Exception
-	{
-		if (Box.VERBOSE) {
-			this.traceMessage("Box stops heating.\n");
-		}
-
-		assert	this.on() : new PreconditionException("on()");
-		assert	this.heating() : new PreconditionException("heating()");
-
-		this.currentState = BoxState.ON;
-
-		assert	!this.heating() : new PostconditionException("!heating()");
 	}
 
 	/**

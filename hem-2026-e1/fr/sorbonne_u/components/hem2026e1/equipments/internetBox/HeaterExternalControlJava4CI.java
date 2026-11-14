@@ -103,37 +103,5 @@ extends		BoxExternalControlCI
 	 * @throws Exception	<i>to do</i>.
 	 */
 	public double		getCurrentPowerLevelJava4() throws Exception;
-
-	/**
-	 * get the target temperature by calling the synonymous method
-	 * {@code Measure<Double> getTargetTemperature()}.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code true}	// no precondition.
-	 * post	{@code return >= Box.MIN_TARGET_TEMPERATURE.getData() && return <= Box.MAX_TARGET_TEMPERATURE.getData()}
-	 * </pre>
-	 *
-	 * @return				the target temperature in celsius.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public double		getTargetTemperatureJava4() throws Exception ;
-
-	/**
-	 * get the current temperature by calling the synonymous method
-	 * {@code SignalData<Double> getCurrentTemperature()}.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code true}	// no precondition.
-	 * post	{@code true}	// no postcondition.
-	 * </pre>
-	 *
-	 * @return				the current temperature in celsius.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public double		getCurrentTemperatureJava4() throws Exception;
 }
 // -----------------------------------------------------------------------------

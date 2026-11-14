@@ -127,17 +127,6 @@ implements	BoxUserJava4CI
 	// -------------------------------------------------------------------------
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#setTargetTemperatureJava4(double)
-	 */
-	@Override
-	public void			setTargetTemperatureJava4(double target)
-	throws Exception
-	{
-		this.setTargetTemperature(
-				new Measure<Double>(target, Box.TEMPERATURE_UNIT));
-	}
-
-	/**
 	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#getMaxPowerLevelJava4()
 	 */
 	@Override
@@ -164,26 +153,6 @@ implements	BoxUserJava4CI
 	public double		getCurrentPowerLevelJava4() throws Exception
 	{
 		return this.getCurrentPowerLevel().getMeasure().getData();
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#getTargetTemperatureJava4()
-	 */
-	@Override
-	public double		getTargetTemperatureJava4() throws Exception
-	{
-		
-		return this.getTargetTemperature().getMeasure().getData();
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#getCurrentTemperatureJava4()
-	 */
-	@Override
-	public double		getCurrentTemperatureJava4() throws Exception
-	{
-		
-		return this.getCurrentTemperature().getMeasure().getData();
 	}
 }
 // -----------------------------------------------------------------------------

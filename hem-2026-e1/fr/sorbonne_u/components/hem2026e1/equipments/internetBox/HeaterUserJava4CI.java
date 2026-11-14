@@ -54,22 +54,6 @@ public interface		BoxUserJava4CI
 extends		BoxUserCI
 {
 	/**
-	 * set the target temperature by calling the synonymous method
-	 * {@code setTargetTemperature(Measure<Double>)}
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code target >= MIN_TARGET_TEMPERATURE.getData() && target <= MAX_TARGET_TEMPERATURE.getData()}
-	 * post	{@code getTargetTemperatureJava4().equals(target)}
-	 * </pre>
-	 *
-	 * @param target		target temperature in celsius.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public void			setTargetTemperatureJava4(double target) throws Exception;
-
-	/**
 	 * get the maximum power level by calling the synonymous method
 	 * {@code Measure<Double>	getMaxPowerLevel()}.
 	 * 
@@ -118,37 +102,5 @@ extends		BoxUserCI
 	 * @throws Exception	<i>to do</i>.
 	 */
 	public double		getCurrentPowerLevelJava4() throws Exception;
-
-	/**
-	 * get the target temperature by calling the synonymous method
-	 * {@code Measure<Double> getTargetTemperature()}.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code true}	// no precondition.
-	 * post	{@code return >= Box.MIN_TARGET_TEMPERATURE.getData() && return <= Box.MAX_TARGET_TEMPERATURE.getData()}
-	 * </pre>
-	 *
-	 * @return				the target temperature in celsius.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public double		getTargetTemperatureJava4() throws Exception ;
-
-	/**
-	 * get the current temperature by calling the synonymous method
-	 * {@code SignalData<Double> getCurrentTemperature()}.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code true}	// no precondition.
-	 * post	{@code true}	// no postcondition.
-	 * </pre>
-	 *
-	 * @return				the current temperature in celsius.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public double		getCurrentTemperatureJava4() throws Exception;
 }
 // -----------------------------------------------------------------------------

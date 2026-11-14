@@ -34,7 +34,6 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box;
 
 import fr.sorbonne_u.components.interfaces.OfferedCI;
 import fr.sorbonne_u.components.interfaces.RequiredCI;
-import fr.sorbonne_u.alasca.physical_data.Measure;
 
 // -----------------------------------------------------------------------------
 /**
@@ -46,7 +45,7 @@ import fr.sorbonne_u.alasca.physical_data.Measure;
  * <p>
  * This component interface declares the same signatures as the ones declared
  * in the interface {@code BoxUserI} and the ones in its inherited interfaces
- * {@code BoxExternalControlI} and {@code BoxTemperatureI}.
+ * {@code BoxExternalControlI} and {@code BoxStateI}.
  * </p>
  * 
  * <p><strong>Invariants</strong></p>
@@ -118,23 +117,5 @@ extends		OfferedCI,
 	 * @throws Exception	<i>to do</i>.
 	 */
 	public void			switchOff() throws Exception;
-
-	/**
-	 * set the target temperature.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code on()}
-	 * pre	{@code target != null && TEMPERATURE_UNIT.equals(target.getMeasurementUnit())}
-	 * pre	{@code target.getData() >= MIN_TARGET_TEMPERATURE.getData() && target.getData() <= MAX_TARGET_TEMPERATURE.getData()}
-	 * post	{@code getTargetTemperature().getMeasure().equals(target)}
-	 * </pre>
-	 *
-	 * @param target		the new target temperature.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public void			setTargetTemperature(Measure<Double> target)
-	throws Exception;
 }
 // -----------------------------------------------------------------------------

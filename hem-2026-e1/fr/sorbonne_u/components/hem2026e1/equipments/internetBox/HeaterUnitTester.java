@@ -39,8 +39,6 @@ import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import fr.sorbonne_u.components.hem2026e1.CVMIntegrationTest;
 import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxExternalControlConnector;
 import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxExternalControlOutboundPort;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxInternalControlConnector;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxInternalControlOutboundPort;
 import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxUserConnector;
 import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxUserOutboundPort;
 import fr.sorbonne_u.components.utils.tests.TestsStatistics;
@@ -56,7 +54,6 @@ import fr.sorbonne_u.utils.aclocks.ClocksServerOutboundPort;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import fr.sorbonne_u.alasca.physical_data.Measure;
-import fr.sorbonne_u.alasca.physical_data.MeasurementUnit;
 import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
 
 // -----------------------------------------------------------------------------
@@ -70,7 +67,6 @@ import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
  * 
  * <pre>
  * invariant	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
- * invariant	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
  * invariant	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
  * </pre>
  * 
@@ -86,7 +82,6 @@ import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
  * @author	<a href="mailto:Jacques.Malenfant@lip6.fr">Jacques Malenfant</a>
  */
 @RequiredInterfaces(required={BoxUserCI.class,
-							  BoxInternalControlCI.class,
 							  ClocksServerCI.class})
 public class			BoxUnitTester
 extends		AbstractComponent
@@ -114,15 +109,11 @@ extends		AbstractComponent
 	protected final boolean		isUnitTest;
 	/** URI of the user component interface inbound port.					*/
 	protected String			BoxUserInboundPortURI;
-	/** URI of the internal control component interface inbound port.		*/
-	protected String			BoxInternalControlInboundPortURI;
 	/** URI of the external control component interface inbound port.		*/
 	protected String			BoxExternalControlInboundPortURI;
 
 	/** user component interface inbound port.								*/
 	protected BoxUserOutboundPort			hop;
-	/** internal control component interface inbound port.					*/
-	protected BoxInternalControlOutboundPort	hicop;
 	/** external control component interface inbound port.					*/
 	protected BoxExternalControlOutboundPort	hecop;
 
@@ -158,13 +149,7 @@ extends		AbstractComponent
 				BoxUnitTester.class, ht,
 				"ht.BoxUserInboundPortURI != null && "
 							+ "!ht.BoxUserInboundPortURI.isEmpty()");
-		ret &= AssertionChecking.checkImplementationInvariant(
-				ht.BoxInternalControlInboundPortURI != null &&
-							!ht.BoxInternalControlInboundPortURI.isEmpty(),
-				BoxUnitTester.class, ht,
-				"ht.BoxInternalControlInboundPortURI != null && "
-						+ "!ht.BoxInternalControlInboundPortURI.isEmpty()");
-		ret &= AssertionChecking.checkImplementationInvariant(
+		ret &=AssertionChecking.checkImplementationInvariant(
 				ht.BoxExternalControlInboundPortURI != null &&
 							!ht.BoxExternalControlInboundPortURI.isEmpty(),
 				BoxUnitTester.class, ht,
@@ -241,50 +226,44 @@ extends		AbstractComponent
 	{
 		this(isUnitTest,
 			 Box.USER_INBOUND_PORT_URI,
-			 Box.INTERNAL_CONTROL_INBOUND_PORT_URI,
 			 Box.EXTERNAL_CONTROL_INBOUND_PORT_URI);
 	}
 
 	/**
 	 * create a Box test component.
-	 * 
+	 *
 	 * <p><strong>Contract</strong></p>
-	 * 
+	 *
 	 * <pre>
 	 * pre	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
-	 * pre	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
 	 * pre	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
 	 * post	{@code true}	// no postcondition.
 	 * </pre>
 	 *
 	 * @param isUnitTest							true if the component must perform unit tests, otherwise it executes integration tests actions.
 	 * @param BoxUserInboundPortURI				URI of the user component interface inbound port.
-	 * @param BoxInternalControlInboundPortURI	URI of the internal control component interface inbound port.
 	 * @param BoxExternalControlInboundPortURI	URI of the external control component interface inbound port.
 	 * @throws Exception							<i>to do</i>.
 	 */
 	protected			BoxUnitTester(
 		boolean isUnitTest,
 		String BoxUserInboundPortURI,
-		String BoxInternalControlInboundPortURI,
 		String BoxExternalControlInboundPortURI
 		) throws Exception
 	{
 		super(1, 1);
 		this.isUnitTest = isUnitTest;
 		this.initialise(BoxUserInboundPortURI,
-						BoxInternalControlInboundPortURI,
 						BoxExternalControlInboundPortURI);
 	}
 
 	/**
 	 * create a Box test component.
-	 * 
+	 *
 	 * <p><strong>Contract</strong></p>
-	 * 
+	 *
 	 * <pre>
 	 * pre	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
-	 * pre	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
 	 * pre	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
 	 * post	{@code true}	// no postcondition.
 	 * </pre>
@@ -292,7 +271,6 @@ extends		AbstractComponent
 	 * @param isUnitTest							true if the component must perform unit tests, otherwise it executes integration tests actions.
 	 * @param reflectionInboundPortURI				URI of the reflection inbound port of the component.
 	 * @param BoxUserInboundPortURI				URI of the user component interface inbound port.
-	 * @param BoxInternalControlInboundPortURI	URI of the internal control component interface inbound port.
 	 * @param BoxExternalControlInboundPortURI	URI of the external control component interface inbound port.
 	 * @throws Exception							<i>to do</i>.
 	 */
@@ -300,47 +278,38 @@ extends		AbstractComponent
 		boolean isUnitTest,
 		String reflectionInboundPortURI,
 		String BoxUserInboundPortURI,
-		String BoxInternalControlInboundPortURI,
 		String BoxExternalControlInboundPortURI
 		) throws Exception
 	{
 		super(reflectionInboundPortURI, 1, 1);
 		this.isUnitTest = isUnitTest;
 		this.initialise(BoxUserInboundPortURI,
-						BoxInternalControlInboundPortURI,
 						BoxExternalControlInboundPortURI);
 	}
 
 	/**
 	 * initialise a Box test component.
-	 * 
+	 *
 	 * <p><strong>Contract</strong></p>
-	 * 
+	 *
 	 * <pre>
 	 * pre	{@code BoxUserInboundPortURI != null && !BoxUserInboundPortURI.isEmpty()}
-	 * pre	{@code BoxInternalControlInboundPortURI != null && !BoxInternalControlInboundPortURI.isEmpty()}
 	 * pre	{@code BoxExternalControlInboundPortURI != null && !BoxExternalControlInboundPortURI.isEmpty()}
 	 * post	{@code true}	// no postcondition.
 	 * </pre>
 	 *
 	 * @param BoxUserInboundPortURI				URI of the user component interface inbound port.
-	 * @param BoxInternalControlInboundPortURI	URI of the internal control component interface inbound port.
 	 * @param BoxExternalControlInboundPortURI	URI of the external control component interface inbound port.
 	 * @throws Exception							<i>to do</i>.
 	 */
 	protected void		initialise(
 		String BoxUserInboundPortURI,
-		String BoxInternalControlInboundPortURI,
 		String BoxExternalControlInboundPortURI
 		) throws Exception
 	{
 		this.BoxUserInboundPortURI = BoxUserInboundPortURI;
 		this.hop = new BoxUserOutboundPort(this);
 		this.hop.publishPort();
-		this.BoxInternalControlInboundPortURI =
-									BoxInternalControlInboundPortURI;
-		this.hicop = new BoxInternalControlOutboundPort(this);
-		this.hicop.publishPort();
 		this.BoxExternalControlInboundPortURI =
 									BoxExternalControlInboundPortURI;
 		this.hecop = new BoxExternalControlOutboundPort(this);
@@ -480,233 +449,6 @@ extends		AbstractComponent
 				this.logMessage("     but was: on");
 				this.statistics.incorrectResult();
 			}
-		} catch (Throwable e) {
-			this.statistics.incorrectResult();
-			this.logMessage("     but the exception " + e + " has been raised");
-		}
-
-		this.statistics.updateStatistics();
-	}
-
-	/**
-	 * test getting and setting the target temperature of the Box.
-	 * 
-	 * <p><strong>Description</strong></p>
-	 * 
-	 * <p>Gherkin specification</p>
-	 * <p></p>
-	 * <pre>
-	 * Feature: getting and setting the target temperature of the Box");
-	 *   Scenario: getting the target temperature through the user interface when just initialised
-	 *     Given the Box is initialised
-	 *     And the Box has not been used yet
-	 *     And the Box is on
-	 *     When I get the target temperature through the user interface
-	 *     Then the target temperature of the Box is the Box standard target temperature
-	 *   Scenario: getting the target temperature through the internal control interface when just initialised
-	 *     Given the Box is initialised
-	 *     And the Box has not been used yet
-	 *     And the Box is on
-	 *     When I get the target temperature through the internal control interface
-	 *     Then the target temperature of the Box is the Box standard target temperature
-	 *   Scenario: setting the target temperature of the Box when on
-	 *     Given the Box is initialised
-	 *     And the Box is on
-	 *     When I set the temperature at any given temperature between -50 and 50 Celsius inclusive
-	 *     Then the target temperature of the Box is the given temperature
-	 * </pre>
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code true}	// no precondition.
-	 * post	{@code true}	// no postcondition.
-	 * </pre>
-	 *
-	 */
-	protected void		testTargetTemperature()
-	{
-		this.logMessage("Feature: getting and setting the target temperature"
-						+ " of the Box");
-
-		this.logMessage("  Scenario: getting the target temperature through the"
-						+ " user interface when just initialised");
-		this.logMessage("    Given the Box is initialised");
-		this.logMessage("    And the Box has not been used yet");
-		this.logMessage("    And the Box is on");
-		boolean result;
-		TimedMeasure<Double> temperature = null;
-		try {
-			this.hop.switchOn();
-			result = this.hop.on();
-			if (!result) {
-				this.logMessage("     but was: off");
-				this.statistics.failedCondition();
-			}
-			this.logMessage("    When I get the target temperature through the "
-							+ "user interface ");
-			temperature = this.hop.getTargetTemperature();
-			if (temperature.getMeasure().getData() ==
-									Box.STANDARD_TARGET_TEMPERATURE.getData()
-				&& temperature.getMeasure().getMeasurementUnit().equals(
-													MeasurementUnit.CELSIUS)) {
-				this.logMessage("    Then the target temperature of the Box"
-								+ " is the Box standard target temperature");
-			} else {
-				this.logMessage("     but was: " + temperature.getMeasure());
-				this.statistics.incorrectResult();
-			}
-		} catch (Throwable e) {
-			this.statistics.incorrectResult();
-			this.logMessage("     but the exception " + e + " has been raised");
-		}
-
-		this.statistics.updateStatistics();
-
-		this.logMessage("  Scenario: getting the target temperature through the internal control interface when just initialised");
-		this.logMessage("    Given the Box is initialised");
-		this.logMessage("    And the Box has not been used yet");
-		this.logMessage("    And the Box is on");
-		try {
-			this.logMessage("    When I get the target temperature through the internal control interface");
-			temperature = this.hicop.getTargetTemperature();
-			if (temperature.getMeasure().getData() ==
-									Box.STANDARD_TARGET_TEMPERATURE.getData()
-				&& temperature.getMeasure().getMeasurementUnit().equals(
-													MeasurementUnit.CELSIUS)) {
-				this.logMessage("    Then the target temperature of the Box"
-								+ " is the Box standard target temperature");
-			} else {
-				this.logMessage("     but was: " + temperature.getMeasure());
-				this.statistics.incorrectResult();
-			}
-		} catch (Throwable e) {
-			this.statistics.incorrectResult();
-			this.logMessage("     but the exception " + e + " has been raised");
-		}
-
-		this.statistics.updateStatistics();
-
-		this.logMessage("  Scenario: setting the target temperature of the "
-						+ "Box when on");
-		this.logMessage("    Given the Box is initialised");
-		this.logMessage("    And the Box is on");
-		try {
-			result = this.hop.on();
-			if (!result) {
-				this.logMessage("     but was: off");
-				this.statistics.failedCondition();
-			}
-			this.logMessage("    When I set the temperature at any given "
-							+ "temperature between -50 and 50 Celsius inclusive");
-			this.hop.setTargetTemperature(
-					new Measure<Double>(21.0, Box.TEMPERATURE_UNIT));
-			temperature = this.hop.getTargetTemperature();
-			if (temperature.getMeasure().getData() == 21.0 &&
-					temperature.getMeasure().getMeasurementUnit().equals(
-													MeasurementUnit.CELSIUS)) {
-				this.logMessage("    Then the target temperature of the Box"
-								+ " is the given temperature");
-			} else {
-				this.statistics.incorrectResult();
-				this.logMessage("     but was not: " + temperature.getMeasure());
-			}
-			this.hop.switchOff();
-		} catch (Throwable e) {
-			this.statistics.incorrectResult();
-			this.logMessage("     but the exception " + e + " has been raised");
-		}
-
-		this.statistics.updateStatistics();
-	}
-
-	/**
-	 * test getting the current temperature in the room of the Box.
-	 * 
-	 * <p><strong>Description</strong></p>
-	 * 
-	 * <p>Gherkin specification</p>
-	 * <p></p>
-	 * <pre>
-	 * Feature: getting the current temperature in the room of the Box");
-	 *   Scenario: getting the current temperature when on");
-	 *     Given the Box is initialised");
-	 *     And the Box has not been used yet");
-	 *     And the Box is on");
-	 *     When I get the current temperature of the Box");
-	 *     Then the current temperature is the Box standard current temperature");
-	 * </pre>
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code true}	// no precondition.
-	 * post	{@code true}	// no postcondition.
-	 * </pre>
-	 *
-	 */
-	protected void		testCurrentTemperature()
-	{
-		this.logMessage("Feature: getting the current temperature"
-						+ " in the room of the Box");
-
-		this.logMessage("  Scenario: getting the current temperature through "
-						+ "the user interface when on");
-		this.logMessage("    Given the Box is initialised");
-		this.logMessage("    And the Box has not been used yet");
-		this.logMessage("    And the Box is on");
-		boolean result;
-		TimedMeasure<Double> temperature = null;
-		try {
-			this.hop.switchOn();
-			result = this.hop.on();
-			if (!result) {
-				this.logMessage("     but was: off");
-				this.statistics.failedCondition();
-			}
-			this.logMessage("    When I get the current temperature of the "
-							+ "Box through the user interface");
-			temperature = this.hop.getCurrentTemperature();
-			if (temperature.getMeasure().getData() == 
-					Box.FAKE_CURRENT_TEMPERATURE.getMeasure().getData() &&
-				temperature.getMeasure().getMeasurementUnit().equals(
-					Box.FAKE_CURRENT_TEMPERATURE.getMeasure().
-														getMeasurementUnit())) {
-				this.logMessage("    Then the current temperature is the Box"
-								+ " standard current temperature");
-			} else {
-				this.logMessage("     but was: " + temperature.getMeasure().getData());
-				this.statistics.incorrectResult();
-			}
-		} catch (Throwable e) {
-			this.statistics.incorrectResult();
-			this.logMessage("     but the exception " + e + " has been raised");
-		}
-
-		this.statistics.updateStatistics();
-
-		this.logMessage("  Scenario: getting the current temperature through "
-						+ "the internal control interface when on");
-		this.logMessage("    Given the Box is initialised");
-		this.logMessage("    And the Box has not been used yet");
-		this.logMessage("    And the Box is on");
-		try {
-			this.logMessage("    When I get the current temperature of the "
-							+ "Box through the user interface");
-			temperature = this.hicop.getCurrentTemperature();
-			if (temperature.getMeasure().getData() == 
-					Box.FAKE_CURRENT_TEMPERATURE.getMeasure().getData() &&
-				temperature.getMeasure().getMeasurementUnit().equals(
-					Box.FAKE_CURRENT_TEMPERATURE.getMeasure().
-														getMeasurementUnit())) {
-				this.logMessage("    Then the current temperature is the Box"
-								+ " standard current temperature");
-			} else {
-				this.statistics.incorrectResult();
-				this.logMessage("     but was: " +
-										temperature.getMeasure().getData());
-			}
-			this.hop.switchOff();
 		} catch (Throwable e) {
 			this.statistics.incorrectResult();
 			this.logMessage("     but the exception " + e + " has been raised");
@@ -1044,8 +786,6 @@ extends		AbstractComponent
 	{
 		this.testOff();
 		this.testSwitchOnSwitchOff();
-		this.testTargetTemperature();
-		this.testCurrentTemperature();
 		this.testPowerLevel();
 
 		this.statistics.statisticsReport(this);
@@ -1068,10 +808,6 @@ extends		AbstractComponent
 					this.hop.getPortURI(),
 					this.BoxUserInboundPortURI,
 					BoxUserConnector.class.getCanonicalName());
-			this.doPortConnection(
-					this.hicop.getPortURI(),
-					BoxInternalControlInboundPortURI,
-					BoxInternalControlConnector.class.getCanonicalName());
 			this.doPortConnection(
 					this.hecop.getPortURI(),
 					BoxExternalControlInboundPortURI,
@@ -1158,7 +894,6 @@ extends		AbstractComponent
 	public synchronized void	finalise() throws Exception
 	{
 		this.doPortDisconnection(this.hop.getPortURI());
-		this.doPortDisconnection(this.hicop.getPortURI());
 		this.doPortDisconnection(this.hecop.getPortURI());
 		super.finalise();
 	}
@@ -1171,7 +906,6 @@ extends		AbstractComponent
 	{
 		try {
 			this.hop.unpublishPort();
-			this.hicop.unpublishPort();
 			this.hecop.unpublishPort();
 		} catch (Throwable e) {
 			throw new ComponentShutdownException(e) ;

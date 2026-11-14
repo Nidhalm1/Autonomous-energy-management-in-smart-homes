@@ -216,19 +216,6 @@ implements	BoxUserCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#setTargetTemperature(fr.sorbonne_u.alasca.physical_data.Measure)
-	 */
-	@Override
-	public void			setTargetTemperature(Measure<Double> target)
-	throws Exception
-	{
-		this.getOwner().handleRequest(
-				o -> {	((BoxUserI)o).setTargetTemperature(target);
-						return null;
-				});
-	}
-	
-	/**
 	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#getMaxPowerLevel()
 	 */
 	@Override
@@ -259,26 +246,6 @@ implements	BoxUserCI
 	{
 		return this.getOwner().handleRequest(
 				o -> ((BoxUserI)o).getCurrentPowerLevel());
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#getTargetTemperature()
-	 */
-	@Override
-	public TimedMeasure<Double>	getTargetTemperature() throws Exception
-	{
-		return this.getOwner().handleRequest(
-				o -> ((BoxUserI)o).getTargetTemperature());
-	}
-
-	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#getCurrentTemperature()
-	 */
-	@Override
-	public TimedMeasure<Double>	getCurrentTemperature() throws Exception
-	{
-		return this.getOwner().handleRequest(
-				o -> ((BoxUserI)o).getCurrentTemperature());
 	}
 }
 // -----------------------------------------------------------------------------

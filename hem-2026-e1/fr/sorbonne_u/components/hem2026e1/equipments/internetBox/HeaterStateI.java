@@ -33,14 +33,12 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box;
 // The fact that you are presently reading this means that you have had
 // knowledge of the CeCILL-C license and that you accept its terms.
 
-import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
 import fr.sorbonne_u.exceptions.PreconditionException;
 
 // -----------------------------------------------------------------------------
 /**
  * The class <code>BoxStateI</code> declares the signatures of the services
- * accessing the state of the Box (on or off, current and target
- * temperatures).
+ * accessing the state of the Box (on or off).
  *
  * <p><strong>Description</strong></p>
  * 
@@ -125,34 +123,5 @@ extends		BoxConfigurationI
 	 * @return	true if the Box is currently running.
 	 */
 	public boolean		on();
-
-	/**
-	 * get the current target temperature.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code on()}
-	 * post	{@code return != null && Box.TEMPERATURE_UNIT.equals(return.getMeasure().getMeasurementUnit())}
-	 * post	{@code return.getMeasure().getData() >= Box.MIN_TARGET_TEMPERATURE.getData() && return.getMeasure().getData() <= Box.MAX_TARGET_TEMPERATURE.getData()}
-	 * </pre>
-	 *
-	 * @return				the current target temperature.
-	 */
-	public TimedMeasure<Double>	getTargetTemperature();
-
-	/**
-	 * return the current temperature measured by the thermostat.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code on()}
-	 * post	{@code return != null && Box.TEMPERATURE_UNIT.equals(return.getMeasure().getMeasurementUnit())}
-	 * </pre>
-	 *
-	 * @return				the current temperature measured by the thermostat.
-	 */
-	public TimedMeasure<Double>	getCurrentTemperature();
 }
 // -----------------------------------------------------------------------------

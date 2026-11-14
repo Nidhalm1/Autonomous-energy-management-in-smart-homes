@@ -37,8 +37,8 @@ import fr.sorbonne_u.components.AbstractComponent;
 
 // -----------------------------------------------------------------------------
 /**
- * The class <code>CVMUnitTest</code> performs unit tests for the thermostated
- * Box component.
+ * The class <code>CVMUnitTest</code> performs unit tests for the Box
+ * component.
  *
  * <p><strong>Description</strong></p>
  * 

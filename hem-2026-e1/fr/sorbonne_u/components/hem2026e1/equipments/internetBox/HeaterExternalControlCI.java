@@ -50,7 +50,7 @@ import fr.sorbonne_u.alasca.physical_data.TimedMeasure;
  * <p>
  * This component interface declares the same signatures as the ones declared
  * in the interface {@code BoxExternalControlI} and the ones in its inherited
- * interface {@code BoxTemperatureI}.
+ * interface {@code BoxStateI}.
  * </p>
  * 
  * <p><strong>Invariants</strong></p>
@@ -138,39 +138,6 @@ extends		RequiredCI,
 	 * @throws Exception	<i>to do</i>.
 	 */
 	public boolean		on() throws Exception;
-
-	/**
-	 * get the current target temperature.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code on()}
-	 * post	{@code return != null && Box.TEMPERATURE_UNIT.equals(return.getMeasure().getMeasurementUnit())}
-	 * post	{@code return.getMeasure().getData() >= Box.MIN_TARGET_TEMPERATURE.getData() && return.getMeasure().getData() <= Box.MAX_TARGET_TEMPERATURE.getData()}
-	 * </pre>
-	 *
-	 * @return				the current target temperature.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public TimedMeasure<Double>	getTargetTemperature()
-	throws Exception;
-
-	/**
-	 * return the current temperature measured by the thermostat.
-	 * 
-	 * <p><strong>Contract</strong></p>
-	 * 
-	 * <pre>
-	 * pre	{@code on()}
-	 * post	{@code return != null && Box.TEMPERATURE_UNIT.equals(return.getMeasure().getMeasurementUnit())}
-	 * </pre>
-	 *
-	 * @return				the current temperature measured by the thermostat.
-	 * @throws Exception	<i>to do</i>.
-	 */
-	public TimedMeasure<Double>	getCurrentTemperature()
-	throws Exception;
 
 	/**
 	 * return the maximum power of the Box in the power unit used by the
