@@ -1,0 +1,23 @@
+{
+    "java.project.sourcePaths": [
+        "hem-2026-base",
+        "hem-2026-e1",
+        "hem-2026-e2",
+        "exemple-molene/src"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/*.jar"
+        ],
+        "sources": {
+            "lib/BCM4Java-05102026.jar": "lib/sources/BCM4Java-05102026-sources.jar",
+            "lib/NeoSim4Java-27102026.jar": "lib/sources/NeoSim4Java-27102026-sources.jar"
+        }
+    },
+    "java.debug.settings.vmArgs": "-ea",
+    "files.encoding": "utf8",
+    "files.exclude": {
+        "bin": true
+    }
+}
