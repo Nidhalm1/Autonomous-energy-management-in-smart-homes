@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -33,10 +33,10 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
 // knowledge of the CeCILL-C license and that you accept its terms.
 
 import fr.sorbonne_u.components.ComponentI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.Box;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.Box;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserJava4CI;
 import fr.sorbonne_u.exceptions.PreconditionException;
 import fr.sorbonne_u.alasca.physical_data.Measure;
 
@@ -127,7 +127,7 @@ implements	BoxUserJava4CI
 	// -------------------------------------------------------------------------
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#getMaxPowerLevelJava4()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserJava4CI#getMaxPowerLevelJava4()
 	 */
 	@Override
 	public double		getMaxPowerLevelJava4() throws Exception
@@ -136,7 +136,7 @@ implements	BoxUserJava4CI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#setCurrentPowerLevelJava4(double)
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserJava4CI#setCurrentPowerLevelJava4(double)
 	 */
 	@Override
 	public void			setCurrentPowerLevelJava4(double powerLevel)
@@ -147,7 +147,7 @@ implements	BoxUserJava4CI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserJava4CI#getCurrentPowerLevelJava4()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserJava4CI#getCurrentPowerLevelJava4()
 	 */
 	@Override
 	public double		getCurrentPowerLevelJava4() throws Exception

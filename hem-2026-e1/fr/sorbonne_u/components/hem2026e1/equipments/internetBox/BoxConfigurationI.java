@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -77,10 +77,16 @@ public interface		BoxConfigurationI
 	public static final Measure<Double>	TENSION =
 											new Measure<>(220.0, TENSION_UNIT);
 
-											// BoxConfigurationI
-	MODE_1_POWER = new Measure<>(5.0, POWER_UNIT);   // standby
-	MODE_2_POWER = new Measure<>(10.0, POWER_UNIT);  // WiFi on
-	MODE_3_POWER = new Measure<>(15.0, POWER_UNIT);  // WiFi + storage
+	/** power of the Box in mode 1 (standby).								*/
+	public static final Measure<Double>	MODE_1_POWER =
+											new Measure<>(5.0, POWER_UNIT);
+	/** power of the Box in mode 2 (WiFi on).								*/
+	public static final Measure<Double>	MODE_2_POWER =
+											new Measure<>(10.0, POWER_UNIT);
+	/** power of the Box in mode 3 (WiFi + storage).						*/
+	public static final Measure<Double>	MODE_3_POWER =
+											new Measure<>(15.0, POWER_UNIT);
+
 	// -------------------------------------------------------------------------
 	// Invariants
 	// -------------------------------------------------------------------------

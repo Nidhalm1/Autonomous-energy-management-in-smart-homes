@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -33,8 +33,8 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
 // knowledge of the CeCILL-C license and that you accept its terms.
 
 import fr.sorbonne_u.components.ComponentI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlCI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
 import fr.sorbonne_u.exceptions.PreconditionException;
 import fr.sorbonne_u.alasca.physical_data.Measure;
@@ -199,7 +199,7 @@ implements	BoxExternalControlCI
 	// -------------------------------------------------------------------------
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI#on()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlCI#on()
 	 */
 	@Override
 	public boolean		on() throws Exception
@@ -209,7 +209,7 @@ implements	BoxExternalControlCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI#getMaxPowerLevel()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlCI#getMaxPowerLevel()
 	 */
 	@Override
 	public Measure<Double>	getMaxPowerLevel() throws Exception
@@ -219,7 +219,7 @@ implements	BoxExternalControlCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI#setCurrentPowerLevel(fr.sorbonne_u.alasca.physical_data.Measure)
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlCI#setCurrentPowerLevel(fr.sorbonne_u.alasca.physical_data.Measure)
 	 */
 	@Override
 	public void			setCurrentPowerLevel(Measure<Double> powerLevel)
@@ -233,7 +233,7 @@ implements	BoxExternalControlCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlCI#getCurrentPowerLevel()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlCI#getCurrentPowerLevel()
 	 */
 	@Override
 	public TimedMeasure<Double>	getCurrentPowerLevel() throws Exception

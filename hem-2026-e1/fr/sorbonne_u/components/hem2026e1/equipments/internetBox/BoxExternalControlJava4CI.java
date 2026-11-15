@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr

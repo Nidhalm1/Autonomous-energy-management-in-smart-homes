@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -35,8 +35,8 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box;
 import fr.sorbonne_u.components.AbstractComponent;
 import fr.sorbonne_u.components.annotations.OfferedInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxExternalControlJava4InboundPort;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxUserJava4InboundPort;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections.BoxExternalControlJava4InboundPort;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections.BoxUserJava4InboundPort;
 import fr.sorbonne_u.exceptions.ImplementationInvariantException;
 import fr.sorbonne_u.exceptions.AssertionChecking;
 import fr.sorbonne_u.exceptions.InvariantException;
@@ -398,7 +398,7 @@ implements	BoxUserI
 	// -------------------------------------------------------------------------
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxStateI#on()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxStateI#on()
 	 */
 	@Override
 	public boolean		on()
@@ -411,7 +411,7 @@ implements	BoxUserI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserI#switchOn()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserI#switchOn()
 	 */
 	@Override
 	public void			switchOn()
@@ -428,7 +428,7 @@ implements	BoxUserI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserI#switchOff()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserI#switchOff()
 	 */
 	@Override
 	public void			switchOff()
@@ -445,7 +445,7 @@ implements	BoxUserI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlI#getMaxPowerLevel()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlI#getMaxPowerLevel()
 	 */
 	@Override
 	public Measure<Double>	getMaxPowerLevel()
@@ -461,7 +461,7 @@ implements	BoxUserI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlI#getCurrentPowerLevel()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlI#getCurrentPowerLevel()
 	 */
 	@Override
 	public TimedMeasure<Double>	getCurrentPowerLevel()
@@ -491,7 +491,7 @@ implements	BoxUserI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlI#setCurrentPowerLevel(fr.sorbonne_u.alasca.physical_data.Measure)
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlI#setCurrentPowerLevel(fr.sorbonne_u.alasca.physical_data.Measure)
 	 */
 	@Override
 	public void			setCurrentPowerLevel(Measure<Double> powerLevel)

@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -34,8 +34,8 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
 // knowledge of the CeCILL-C license and that you accept its terms.
 
 import fr.sorbonne_u.components.ComponentI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserI;
 import fr.sorbonne_u.components.ports.AbstractInboundPort;
 import fr.sorbonne_u.exceptions.PreconditionException;
 import fr.sorbonne_u.alasca.physical_data.Measure;
@@ -183,7 +183,7 @@ implements	BoxUserCI
 	// -------------------------------------------------------------------------
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#on()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI#on()
 	 */
 	@Override
 	public boolean		on() throws Exception
@@ -192,7 +192,7 @@ implements	BoxUserCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#switchOn()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI#switchOn()
 	 */
 	@Override
 	public void			switchOn() throws Exception
@@ -204,7 +204,7 @@ implements	BoxUserCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#switchOff()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI#switchOff()
 	 */
 	@Override
 	public void			switchOff() throws Exception
@@ -216,7 +216,7 @@ implements	BoxUserCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#getMaxPowerLevel()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI#getMaxPowerLevel()
 	 */
 	@Override
 	public Measure<Double>	getMaxPowerLevel() throws Exception
@@ -226,7 +226,7 @@ implements	BoxUserCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#setCurrentPowerLevel(fr.sorbonne_u.alasca.physical_data.Measure)
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI#setCurrentPowerLevel(fr.sorbonne_u.alasca.physical_data.Measure)
 	 */
 	@Override
 	public void			setCurrentPowerLevel(Measure<Double> powerLevel)
@@ -239,7 +239,7 @@ implements	BoxUserCI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxUserCI#getCurrentPowerLevel()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUserCI#getCurrentPowerLevel()
 	 */
 	@Override
 	public TimedMeasure<Double>	getCurrentPowerLevel() throws Exception

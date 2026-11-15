@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -37,10 +37,10 @@ import fr.sorbonne_u.components.annotations.RequiredInterfaces;
 import fr.sorbonne_u.components.exceptions.ComponentShutdownException;
 import fr.sorbonne_u.components.exceptions.ComponentStartException;
 import fr.sorbonne_u.components.hem2026e1.CVMIntegrationTest;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxExternalControlConnector;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxExternalControlOutboundPort;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxUserConnector;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.connections.BoxUserOutboundPort;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections.BoxExternalControlConnector;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections.BoxExternalControlOutboundPort;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections.BoxUserConnector;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections.BoxUserOutboundPort;
 import fr.sorbonne_u.components.utils.tests.TestsStatistics;
 import fr.sorbonne_u.exceptions.ImplementationInvariantException;
 import fr.sorbonne_u.exceptions.AssertionChecking;

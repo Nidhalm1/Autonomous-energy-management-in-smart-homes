@@ -1,4 +1,4 @@
-package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
+package fr.sorbonne_u.components.hem2026e1.equipments.internetBox.connections;
 
 // Copyright Jacques Malenfant, Sorbonne Universite.
 // Jacques.Malenfant@lip6.fr
@@ -34,8 +34,8 @@ package fr.sorbonne_u.components.hem2026e1.equipments.Box.connections;
 // knowledge of the CeCILL-C license and that you accept its terms.
 
 import fr.sorbonne_u.components.ComponentI;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.Box;
-import fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlJava4CI;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.Box;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlJava4CI;
 import fr.sorbonne_u.alasca.physical_data.Measure;
 
 // -----------------------------------------------------------------------------
@@ -123,7 +123,7 @@ implements	BoxExternalControlJava4CI
 	// -------------------------------------------------------------------------
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlJava4CI#getMaxPowerLevelJava4()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlJava4CI#getMaxPowerLevelJava4()
 	 */
 	@Override
 	public double		getMaxPowerLevelJava4() throws Exception
@@ -132,7 +132,7 @@ implements	BoxExternalControlJava4CI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlJava4CI#setCurrentPowerLevelJava4(double)
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlJava4CI#setCurrentPowerLevelJava4(double)
 	 */
 	@Override
 	public void			setCurrentPowerLevelJava4(double powerLevel)
@@ -143,7 +143,7 @@ implements	BoxExternalControlJava4CI
 	}
 
 	/**
-	 * @see fr.sorbonne_u.components.hem2026e1.equipments.Box.BoxExternalControlJava4CI#getCurrentPowerLevelJava4()
+	 * @see fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxExternalControlJava4CI#getCurrentPowerLevelJava4()
 	 */
 	@Override
 	public double		getCurrentPowerLevelJava4() throws Exception
