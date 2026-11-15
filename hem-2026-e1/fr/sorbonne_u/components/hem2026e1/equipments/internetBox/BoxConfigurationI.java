@@ -77,6 +77,10 @@ public interface		BoxConfigurationI
 	public static final Measure<Double>	TENSION =
 											new Measure<>(220.0, TENSION_UNIT);
 
+											// BoxConfigurationI
+	MODE_1_POWER = new Measure<>(5.0, POWER_UNIT);   // standby
+	MODE_2_POWER = new Measure<>(10.0, POWER_UNIT);  // WiFi on
+	MODE_3_POWER = new Measure<>(15.0, POWER_UNIT);  // WiFi + storage
 	// -------------------------------------------------------------------------
 	// Invariants
 	// -------------------------------------------------------------------------
