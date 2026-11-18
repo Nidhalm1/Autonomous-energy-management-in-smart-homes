@@ -40,6 +40,12 @@ import fr.sorbonne_u.components.hem2026e1.equipments.hairdryer.HairDryer;
 import fr.sorbonne_u.components.hem2026e1.equipments.hairdryer.HairDryerTester;
 import fr.sorbonne_u.components.hem2026e1.equipments.heater.Heater;
 import fr.sorbonne_u.components.hem2026e1.equipments.heater.HeaterUnitTester;
+import fr.sorbonne_u.components.hem2026e1.equipments.cooktop.CookTop;
+import fr.sorbonne_u.components.hem2026e1.equipments.cooktop.CookTopTester;
+import fr.sorbonne_u.components.hem2026e1.equipments.washer.Washer;
+import fr.sorbonne_u.components.hem2026e1.equipments.washer.WasherTester;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.InternetBox;
+import fr.sorbonne_u.components.hem2026e1.equipments.internetBox.BoxUnitTester;
 import fr.sorbonne_u.components.hem2026e1.equipments.hem.HEM;
 import fr.sorbonne_u.components.hem2026e1.equipments.hem.MyHEM;
 import fr.sorbonne_u.components.hem2026e1.equipments.meter.ElectricMeter;
@@ -93,8 +99,7 @@ extends		AbstractCVM
 	 *  the simulated time to get the execution time of the simulations. 	*/
 	public static final double	ACCELERATION_FACTOR = 1.0;
 	/** start instant in test scenarios, as a string to be parsed.			*/
-	public static final Instant	START_INSTANT =
-									Instant.parse("2024-09-18T14:00:00.00Z");
+	public static final Instant	START_INSTANT = Instant.parse("2024-09-18T14:00:00.00Z");
 	/** number of square meters in the test solar panel.					*/
 	public static final int		NB_OF_SQUARE_METERS = 10;
 
@@ -238,6 +243,27 @@ extends		AbstractCVM
 		Heater.X_RELATIVE_POSITION = 1;
 		Heater.Y_RELATIVE_POSITION = 3;
 
+		WasherTester.VERBOSE = true;
+		WasherTester.X_RELATIVE_POSITION = 2;
+		WasherTester.Y_RELATIVE_POSITION = 2;
+		Washer.VERBOSE = true;
+		Washer.X_RELATIVE_POSITION = 3;
+		Washer.Y_RELATIVE_POSITION = 2;
+
+		CookTopTester.VERBOSE = true;
+		CookTopTester.X_RELATIVE_POSITION = 2;
+		CookTopTester.Y_RELATIVE_POSITION = 3;
+		CookTop.VERBOSE = true;
+		CookTop.X_RELATIVE_POSITION = 3;
+		CookTop.Y_RELATIVE_POSITION = 3;
+
+		BoxUnitTester.VERBOSE = true;
+		BoxUnitTester.X_RELATIVE_POSITION = 0;
+		BoxUnitTester.Y_RELATIVE_POSITION = 4;
+		InternetBox.VERBOSE = true;
+		InternetBox.X_RELATIVE_POSITION = 1;
+		InternetBox.Y_RELATIVE_POSITION = 4;
+
 		assert	CVMIntegrationTest.implementationInvariants(this) :
 				new InvariantException(
 						"CVMIntegrationTest.glassBoxInvariants(this)");
@@ -309,18 +335,37 @@ extends		AbstractCVM
 				new Object[]{false});
 
 		AbstractComponent.createComponent(
+				Washer.class.getCanonicalName(),
+				new Object[]{});
+		AbstractComponent.createComponent(
+				WasherTester.class.getCanonicalName(),
+				new Object[]{false});
+
+		AbstractComponent.createComponent(
+				CookTop.class.getCanonicalName(),
+				new Object[]{});
+		AbstractComponent.createComponent(
+				CookTopTester.class.getCanonicalName(),
+				new Object[]{false});
+
+		AbstractComponent.createComponent(
+				InternetBox.class.getCanonicalName(),
+				new Object[]{});
+		AbstractComponent.createComponent(
+				BoxUnitTester.class.getCanonicalName(),
+				new Object[]{false});
+
+		AbstractComponent.createComponent(
 				MyHEM.class.getCanonicalName(),
 				new Object[]{});
-
 		super.deploy();
 	}
 
-	public static void	main(String[] args)
-	{
+	public static void	main(String[] args) {
 		BCMException.VERBOSE = true;
 		try {
 			CVMIntegrationTest cvm = new CVMIntegrationTest();
-			cvm.startStandardLifeCycle(12000L);
+			cvm.startStandardLifeCycle(20000L);
 			Thread.sleep(100000L);
 			System.exit(0);
 		} catch (Throwable e) {
