@@ -41,6 +41,7 @@ import fr.sorbonne_u.components.hem2026e1.equipments.hairdryer.HairDryerTester;
 import fr.sorbonne_u.components.hem2026e1.equipments.heater.Heater;
 import fr.sorbonne_u.components.hem2026e1.equipments.heater.HeaterUnitTester;
 import fr.sorbonne_u.components.hem2026e1.equipments.hem.HEM;
+import fr.sorbonne_u.components.hem2026e1.equipments.hem.MyHEM;
 import fr.sorbonne_u.components.hem2026e1.equipments.meter.ElectricMeter;
 import fr.sorbonne_u.components.hem2026e1.equipments.solar_panel.SolarPanel;
 import fr.sorbonne_u.components.hem2026e1.equipments.weather_station.WeatherStation;
@@ -93,7 +94,7 @@ extends		AbstractCVM
 	public static final double	ACCELERATION_FACTOR = 1.0;
 	/** start instant in test scenarios, as a string to be parsed.			*/
 	public static final Instant	START_INSTANT =
-									Instant.parse("2026-09-18T14:00:00.00Z");
+									Instant.parse("2024-09-18T14:00:00.00Z");
 	/** number of square meters in the test solar panel.					*/
 	public static final int		NB_OF_SQUARE_METERS = 10;
 
@@ -239,9 +240,10 @@ extends		AbstractCVM
 
 		assert	CVMIntegrationTest.implementationInvariants(this) :
 				new InvariantException(
-						"CVMIntegrationTest.implementationInvariants(this)");
+						"CVMIntegrationTest.glassBoxInvariants(this)");
 		assert	CVMIntegrationTest.invariants(this) :
-				new InvariantException("CVMIntegrationTest.invariants(this)");
+				new InvariantException(
+						"CVMIntegrationTest.blackBoxInvariants(this)");
 	}
 
 	/**
@@ -298,6 +300,7 @@ extends		AbstractCVM
 		AbstractComponent.createComponent(
 				Heater.class.getCanonicalName(),
 				new Object[]{});
+
 		// At this stage, the tester for the heater is added only
 		// to switch on and off the heater; later on, it will be replaced
 		// by a simulation of users' actions.
@@ -306,7 +309,7 @@ extends		AbstractCVM
 				new Object[]{false});
 
 		AbstractComponent.createComponent(
-				HEM.class.getCanonicalName(),
+				MyHEM.class.getCanonicalName(),
 				new Object[]{});
 
 		super.deploy();
